@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Open WiFi Project</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>Open Wifi Project</h1>
+        <p>"The internet is a human right"</p>
+      </header>
+      <main>
+        <form class="card">
+          <h2>Login</h2>
+          <input type="text" placeholder="username" />
+          <input type="password" placeholder="password" />
+          <button id="login-btn">login</button>
+          <button id="signup-btn">sign up</button>
+          <div id="signup-message" class="message">
+            <p>Not registered?</p>
+            <a id="signup-link" href="#">Signup for an account</a>
+          </div>
+          <div id="login-message" class="message">
+            <a id="login-link" href="#">Login</a>
+          </div>
+        </form>
+      </main>
+      <footer class="card">
+        <p>
+          Our internet connection is provided for free by generous donors like
+          you
+        </p>
+        <a id="support-link" href="#">Consider Supporting</a>
+      </footer>
+    </div>
+    <script src="script.js" defer></script>
+  </body>
+</html>

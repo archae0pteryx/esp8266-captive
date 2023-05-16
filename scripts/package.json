@@ -1,0 +1,22 @@
+{
+  "name": "esp8266-captive",
+  "version": "1.0.0",
+  "description": "### ESP8266 Wi Fi Module MiTM Credential Harvester",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cssnano": "^6.0.1",
+    "jsdom": "^22.0.0",
+    "purify-css": "^1.2.5",
+    "uncss": "^0.17.3"
+  },
+  "devDependencies": {
+    "stylelint": "^15.6.1",
+    "stylelint-config-standard": "^33.0.0"
+  }
+}
