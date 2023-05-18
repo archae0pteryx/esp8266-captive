@@ -5,9 +5,9 @@
 #include <DNSServer.h>
 #include <ESP8266WebServer.h>
 
-#include "includes/html.h"
+#include <Html.h>
 
-#define SSID_NAME "Open Wi Fi"
+#define SSID_NAME "Open WiFi"
 
 IPAddress APIP(172, 0, 0, 1);
 

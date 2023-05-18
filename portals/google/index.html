@@ -1,6 +1,7 @@
 <html>
 
 <head>
+
   <style>
     body {
       display: flex;
@@ -66,26 +67,58 @@
       line-height: 1.5
     }
 
-    .input-container {
+    .form-container {
       margin: 1.4rem 2.5rem 0;
-      font-family: roboto, "Noto Sans Myanmar UI", arial, sans-serif
+      font-family: roboto, "Noto Sans Myanmar UI", arial, sans-serif;
     }
 
-    input:focus::placeholder {
-      color: rgba(0, 0, 0, 0.2)
-    }
-
-    #email {
-      border: 1px solid #dadce0;
+    .inputs {
+      border: 0.5px solid #dadce0;
       width: 100%;
       border-radius: 4px;
       font-size: 16px;
-      padding: 1.1rem .8rem
+      padding: 1.1rem .8rem;
+    }
+
+    .input-container input {
+      transition: transform 0.3s ease-in-out;
+      opacity: 1;
+    }
+
+    .input-container.hide input {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+
+    .input-container.hide #password {
+      opacity: 0;
+      transform: translateX(0);
+    }
+
+    .input-container #password {
+      opacity: 0;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .input-container #password.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    input:focus {
+      outline: solid 2px #1a73e8;
+      transition: all .1s ease-in-out;
+    }
+
+    input:focus::placeholder {
+      color: rgba(0, 0, 0, 0.1);
+      transition: all .1s ease-in-out;
     }
 
     .email-phone-btn-container {
       padding-bottom: 3px;
-      padding-top: 12px
+      padding-top: 12px;
     }
 
     .email-phone-btn {
@@ -139,10 +172,11 @@
     }
 
     .create-account-btn {
-      color: var(--gm-colortextbutton-ink-color, #1a73e8);
+      color: #1a73e8;
       border: none;
       background: #fff;
-      cursor: pointer
+      cursor: pointer;
+      font-size: 16px;
     }
 
     .next-btn {
@@ -150,7 +184,7 @@
       text-align: right;
       display: inline-block;
       border: none;
-      background-color: var(--gm-fillbutton-container-color, #1a73e8);
+      background-color: #1a73e8;
       color: #fff;
       padding: 0 24px;
       font-family: "Google Sans", Roboto, Arial, sans-serif;
@@ -162,6 +196,42 @@
       box-shadow: none;
       height: 36px;
       border-radius: 4px
+    }
+    #signin-btn {
+      display: none;
+    }
+    #spin-btn {
+      display: none;
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      position: relative;
+    }
+
+    .spinner:before {
+      content: "";
+      box-sizing: border-box;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      border-top-color: #1a73e8;
+      animation: spin 0.6s infinite ease-in-out;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
   </style>
 </head>
@@ -196,30 +266,86 @@
         </div>
       </div>
     </div>
-    <div class="input-container">
-      <input placeholder="Email or phone" type="text" id="email" name="email" autocomplete="off"
-        value="">
+    <form class="form-container" onsubmit="handleSignIn()">
+      <div class="input-container">
+        <input placeholder="Email or phone" type="text" class="inputs" id="email" name="email"
+          value="">
+        <input placeholder="Password" type="password" class="inputs" id="password" name="email"
+          value="">
+      </div>
       <div class="email-phone-btn-container">
-        <button class="email-phone-btn">
+        <button onclick="handleErrorAlert()" id="forgot-email" class="email-phone-btn">
           Forgot email?
         </button>
-
       </div>
       <div class="not-computer-container">
         <span class="not-computer-text">
           Not your computer? Use a Private Window to sign in.
         </span>
-        <a href="#" class="learn-more">Learn more</a>
+        <a href="#" onclick="handleErrorAlert()" class="learn-more">Learn more</a>
       </div>
       <div class="bottom-btn-container">
         <div class="create-account-btn-container">
           <button class="create-account-btn">Create account</button>
         </div>
         <div class="next-btn-container">
-          <button class="next-btn">Next</button>
+          <button id="next-btn" class="next-btn" onclick="handleClickNext()">Next</button>
+          <button id="signin-btn" class="next-btn" type="submit">Sign in</button>
+          <button id="spin-btn" class="next-btn">
+            <div class="spinner"></div>
+          </button>
         </div>
       </div>
-    </div>
+    </form>
 </body>
+<script>
+
+  const inputContainer = document.querySelector('.input-container');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+  const nextButton = document.getElementById('next-btn');
+  const signInButton = document.getElementById('signin-btn');
+
+  function handleEmailInput(e) {}
+
+  function handlePasswordInput(e) {}
+
+  emailInput.addEventListener('input', handleEmailInput);
+  passwordInput.addEventListener('input', handlePasswordInput);
+
+  nextButton.addEventListener('click', (e) => {
+    e.preventDefault()
+    inputContainer.classList.add('hide');
+    passwordInput.classList.add('show');
+    nextButton.style.display = "none";
+    signInButton.style.display = "inline-block";
+  });
+
+  function handleSignIn(e) {
+    e.preventDefault();
+    triggerLoading();
+
+  }
+
+  function triggerLoading() {
+    signInButton.style.display = "none";
+    document.getElementById("spin-btn").style.display = "inline-block";
+    setTimeout(() => {
+
+      document.getElementById("spin-btn").style.display = "none";
+      signInButton.style.display = "inline-block";
+    }, 2000);
+  }
+
+  function handleErrorAlert() {
+    alert("Something went wrong. Please contact your system administrator.");
+  }
+  // function handleClickNext() {
+  //   triggerLoading()
+  // }
+  function handleForgotEmail() {
+    alert("Something went wrong. Please try again later.")
+  }
+</script>
 
 </html>
