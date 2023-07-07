@@ -16,7 +16,7 @@
     "uncss": "^0.17.3"
   },
   "devDependencies": {
-    "stylelint": "^15.6.1",
+    "stylelint": "^15.10.1",
     "stylelint-config-standard": "^33.0.0"
   }
 }
